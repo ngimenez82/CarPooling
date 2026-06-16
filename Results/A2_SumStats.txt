@@ -1,0 +1,23 @@
+		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)
+VARIABLES	LABELS	Total	Total	2010	2010	2012	2012	2013	2013	2021	2021
+											
+hhldsize	Household size	3.389	1.674	3.192	1.460	3.449	1.762	3.317	1.472	3.667	2.002
+nchild	Number of children	1.062	1.228	0.950	1.096	1.066	1.211	1.073	1.150	1.194	1.485
+hh_numadults	Number of adults in household	2.284	0.954	2.201	0.856	2.329	1.072	2.203	0.888	2.441	0.967
+dayhs_work	Daily hours of work	8.380	2.225	8.310	2.409	8.365	2.164	8.362	2.105	8.520	2.208
+native	Native	0.749	0.434	0.798	0.402	0.747	0.435	0.788	0.409	0.634	0.482
+male	Male	0.609	0.488	0.562	0.496	0.597	0.491	0.590	0.492	0.714	0.453
+incouple	Living with couple	0.561	0.496	0.561	0.497	0.562	0.496	0.557	0.497	0.567	0.496
+secondary	Educ. level: Secondary	0.264	0.441	0.258	0.438	0.261	0.439	0.212	0.409	0.347	0.477
+universitary	Educ. level: University	0.654	0.476	0.657	0.475	0.678	0.468	0.687	0.464	0.571	0.496
+occup_1	Management, business and financial occup.	0.182	0.386	0.186	0.389	0.201	0.401	0.188	0.391	0.144	0.352
+occup_2	Professional, scientific and technical occup.	0.244	0.430	0.271	0.445	0.232	0.423	0.269	0.444	0.191	0.393
+occup_3	Service occupations	0.141	0.348	0.122	0.328	0.127	0.333	0.141	0.348	0.186	0.390
+occup_4	Sales occupations	0.091	0.288	0.115	0.320	0.118	0.322	0.073	0.260	0.047	0.212
+occup_5	Office and administrative support occup.	0.094	0.292	0.077	0.267	0.109	0.312	0.115	0.319	0.066	0.249
+occup_6	Farming, fishing and forestry occup.	0.006	0.074	0.000	0.015	0.005	0.069	0.007	0.082	0.012	0.111
+occup_7	Construction and extraction occup.	0.078	0.268	0.039	0.193	0.080	0.272	0.049	0.216	0.166	0.373
+occup_8	Installation, maintenance and repair occup.	0.040	0.197	0.044	0.205	0.032	0.176	0.057	0.232	0.024	0.154
+occup_9	Production occupations	0.066	0.249	0.056	0.230	0.052	0.223	0.068	0.253	0.098	0.297
+occup_10	Transportation and material moving occup.	0.057	0.233	0.090	0.287	0.044	0.204	0.033	0.179	0.066	0.249
+											

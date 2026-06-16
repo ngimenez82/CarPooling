@@ -1,0 +1,11 @@
+		(1)	(2)
+VARIABLES	LABELS	Total	Total
+			
+m_private	Transport mode: Private vehicle	0.926	0.262
+m_public	Transport mode: Public transport	0.055	0.228
+m_physical	Transport mode: Walking or bicycle	0.019	0.137
+m_carpooling	Carpooling for commuting (With non-household members)	0.053	0.223
+m_fampooling	Fampooling for commuting (Carpooling with household members)	0.057	0.232
+m_driving_alone	Driving alone for commuting	0.817	0.387
+timetravel	Total time travelling by the individual	49.462	41.596
+			

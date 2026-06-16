@@ -1,0 +1,15 @@
+		(1)	(2)
+VARIABLES	LABELS	Total	Total
+			
+dayhs_work	Daily hours of work	8.376	2.225
+occup_1	Management, business and financial occup.	0.182	0.386
+occup_2	Professional, scientific and technical occup.	0.242	0.428
+occup_3	Service occupations	0.141	0.348
+occup_4	Sales occupations	0.092	0.289
+occup_5	Office and administrative support occup.	0.094	0.292
+occup_6	Farming, fishing and forestry occup.	0.006	0.075
+occup_7	Construction and extraction occup.	0.079	0.269
+occup_8	Installation, maintenance and repair occup.	0.040	0.197
+occup_9	Production occupations	0.067	0.250
+occup_10	Transportation and material moving occup.	0.057	0.232
+			

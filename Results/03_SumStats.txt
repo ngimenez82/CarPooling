@@ -1,0 +1,13 @@
+		(1)	(2)
+VARIABLES	LABELS	Total	Total
+			
+age	Age	35.883	8.166
+hhldsize	Household size	3.391	1.678
+nchild	Number of children	1.063	1.231
+hh_numadults	Number of adults in household	2.286	0.957
+native	Native	0.749	0.434
+male	Male	0.607	0.488
+incouple	Living with couple	0.559	0.497
+secondary	Educ. level: Secondary	0.265	0.442
+universitary	Educ. level: University	0.652	0.476
+			
