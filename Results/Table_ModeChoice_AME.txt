@@ -1,0 +1,22 @@
+		(1)	(2)	(3)	(4)
+VARIABLES	LABELS	Carpool (non-HH)	Fampooling	Public transit	Active modes
+					
+male	Male	-0.003	-0.020	0.014	-0.008
+		(0.020)	(0.014)	(0.013)	(0.009)
+secondary	Educ. level: Secondary	-0.032	-0.009	-0.052*	-0.007
+		(0.022)	(0.026)	(0.031)	(0.013)
+universitary	Educ. level: University	-0.054**	0.009	-0.001	-0.004
+		(0.022)	(0.027)	(0.026)	(0.015)
+nchild	Number of children	-0.005	0.006	-0.018**	-0.004
+		(0.007)	(0.006)	(0.009)	(0.004)
+hh_numadults	Number of adults in household	-0.006	0.003	-0.022**	-0.013**
+		(0.009)	(0.007)	(0.010)	(0.007)
+					
+Observations		1,939	1,939	1,939	1,939
+Occupation FE		Yes	Yes	Yes	Yes
+MSA size FE		Yes	Yes	Yes	Yes
+Region FE		Yes	Yes	Yes	Yes
+Year FE		Yes	Yes	Yes	Yes
+SE		Clustered (caseid)	Clustered (caseid)	Clustered (caseid)	Clustered (caseid)
+Standard errors in parentheses					
+*** p<0.01, ** p<0.05, * p<0.1					

@@ -1,4 +1,4 @@
- use "C:\Users\usuario\OneDrive - unizar.es\Carpooling\Data\atus_sample_f.dta",clear
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear
 
 * 0) Ordena por id persona y por orden temporal del episodio
 sort caseid actline  
@@ -24,3 +24,4 @@ bysort caseid: gen n_episodios = _N
 bysort caseid: keep if _n == 1
 tab n_episodios
 sum n_episodios, detail
+

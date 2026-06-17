@@ -3,9 +3,9 @@
 * OBJ. 2: WELL-BEING AND CARPOOLING
 *******************************************
 *******************************************
-*use "C:\Users\usuario\OneDrive - unizar.es\Carpooling\Data\commuting_episodes.dta",clear 
-use "C:\Users\usuario\Desktop\projects\Carpooling\Data\commuting_episodes.dta",clear
-global results "C:\Users\usuario\Desktop\projects\Carpooling\Results"
+*use "C:\data\CarPooling\Data\commuting_episodes.dta",clear 
+use "C:\data\CarPooling\Data\commuting_episodes.dta",clear
+global results "C:\data\CarPooling\Results"
 
 // creating well-being variables standarized: z-score
 sum schappy 

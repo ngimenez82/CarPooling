@@ -1,0 +1,198 @@
+		(1)	(2)
+VARIABLES	LABELS	scstress_z	scstress_z
+			
+m_carpooling	Carpooling for commuting (With non-household members)	-0.328*	-0.309*
+		(0.168)	(0.169)
+m_public	Transport mode: Public transport	-0.136	-0.125
+		(0.181)	(0.180)
+m_physical	Transport mode: Walking or bicycle	-0.081	-0.109
+		(0.153)	(0.147)
+m_fampooling	Fampooling for commuting (Carpooling with household members)	-0.130	-0.113
+		(0.100)	(0.097)
+ln_eptime	ln_eptime	0.169	0.181
+		(0.283)	(0.296)
+ln_eptime_sq	ln_eptime_sq	-0.010	-0.013
+		(0.045)	(0.047)
+age	Age	0.077**	0.065*
+		(0.039)	(0.039)
+age_sq	Age squared	-0.001**	-0.001*
+		(0.001)	(0.001)
+male	Male	-0.182***	-0.186***
+		(0.067)	(0.067)
+native	Native	-0.027	-0.057
+		(0.084)	(0.084)
+secondary	Educ. level: Secondary	0.122	0.151
+		(0.158)	(0.164)
+universitary	Educ. level: University	0.122	0.137
+		(0.155)	(0.161)
+incouple	Living with couple	-0.092	-0.077
+		(0.075)	(0.076)
+hhldsize	Household size	0.006	0.003
+		(0.037)	(0.038)
+nchild	Number of children	-0.032	-0.023
+		(0.047)	(0.048)
+dayhs_work	Daily hours of work	0.040***	0.036***
+		(0.013)	(0.013)
+avenjoy_nontravelling_hap	average happiness in all non-travelling activities		-0.093***
+			(0.023)
+2.occupation	occupation = 2	-0.099	-0.110
+		(0.099)	(0.098)
+3.occupation	occupation = 3	-0.079	-0.093
+		(0.118)	(0.119)
+4.occupation	occupation = 4	-0.159	-0.148
+		(0.113)	(0.112)
+5.occupation	occupation = 5	-0.244**	-0.244**
+		(0.121)	(0.121)
+6.occupation	occupation = 6	-0.057	-0.037
+		(0.414)	(0.422)
+7.occupation	occupation = 7	0.117	0.123
+		(0.162)	(0.166)
+8.occupation	occupation = 8	-0.249*	-0.263*
+		(0.141)	(0.143)
+9.occupation	occupation = 9	-0.246	-0.284*
+		(0.155)	(0.155)
+10.occupation	occupation = 10	-0.501***	-0.524***
+		(0.129)	(0.129)
+weekday	weekday	-0.092	-0.080
+		(0.092)	(0.093)
+state_1	statefip==Alabama	0.140	0.185
+		(0.479)	(0.496)
+state_2	statefip==Alaska	0.912	1.000
+		(1.079)	(1.113)
+state_3	statefip==Arizona	0.675	0.683
+		(0.451)	(0.467)
+state_4	statefip==Arkansas	0.049	0.045
+		(0.541)	(0.539)
+state_5	statefip==California	0.524	0.605
+		(0.434)	(0.452)
+state_6	statefip==Colorado	0.622	0.621
+		(0.459)	(0.472)
+state_7	statefip==Connecticut	0.916	0.939
+		(0.574)	(0.588)
+state_8	statefip==Delaware	-0.067	0.068
+		(0.537)	(0.552)
+state_9	statefip==District of Columbia	1.343***	1.463***
+		(0.492)	(0.491)
+state_10	statefip==Florida	0.416	0.512
+		(0.436)	(0.453)
+state_11	statefip==Georgia	0.380	0.457
+		(0.452)	(0.467)
+state_12	statefip==Hawaii	-0.428	-0.532
+		(0.454)	(0.481)
+state_13	statefip==Idaho	0.224	0.210
+		(0.470)	(0.486)
+state_14	statefip==Illinois	0.356	0.441
+		(0.440)	(0.456)
+state_15	statefip==Indiana	0.137	0.197
+		(0.440)	(0.453)
+state_16	statefip==Iowa	0.665	0.699
+		(0.501)	(0.516)
+state_17	statefip==Kansas	0.502	0.583
+		(0.473)	(0.486)
+state_18	statefip==Kentucky	0.418	0.479
+		(0.473)	(0.490)
+state_19	statefip==Louisiana	0.671	0.707
+		(0.502)	(0.525)
+state_20	statefip==Maine	-0.140	-0.214
+		(0.445)	(0.470)
+state_21	statefip==Maryland	0.466	0.492
+		(0.446)	(0.462)
+state_22	statefip==Massachusetts	0.690	0.797*
+		(0.459)	(0.476)
+state_23	statefip==Michigan	0.528	0.566
+		(0.434)	(0.452)
+state_24	statefip==Minnesota	0.097	0.117
+		(0.438)	(0.455)
+state_25	statefip==Mississippi	0.100	0.192
+		(0.517)	(0.524)
+state_26	statefip==Missouri	0.342	0.383
+		(0.451)	(0.468)
+state_27	statefip==Montana	0.053	0.118
+		(0.544)	(0.531)
+state_28	statefip==Nebraska	-0.133	-0.068
+		(0.507)	(0.516)
+state_29	statefip==Nevada	0.667	0.722
+		(0.564)	(0.573)
+state_30	statefip==New Hampshire	-0.093	0.045
+		(0.494)	(0.499)
+state_31	statefip==New Jersey	0.551	0.566
+		(0.475)	(0.495)
+state_32	statefip==New Mexico	0.094	0.141
+		(0.437)	(0.459)
+state_33	statefip==New York	0.571	0.623
+		(0.442)	(0.458)
+state_34	statefip==North Carolina	0.301	0.375
+		(0.436)	(0.454)
+state_35	statefip==North Dakota	0.465	0.559
+		(0.580)	(0.582)
+state_36	statefip==Ohio	0.209	0.254
+		(0.430)	(0.447)
+state_37	statefip==Oklahoma	0.328	0.437
+		(0.475)	(0.486)
+state_38	statefip==Oregon	0.339	0.362
+		(0.455)	(0.470)
+state_39	statefip==Pennsylvania	0.177	0.247
+		(0.444)	(0.461)
+state_40	statefip==Rhode Island	0.829	0.975
+		(0.608)	(0.641)
+state_41	statefip==South Carolina	0.374	0.452
+		(0.480)	(0.497)
+state_42	statefip==South Dakota	0.375	0.480
+		(0.628)	(0.654)
+state_43	statefip==Tennessee	0.319	0.392
+		(0.451)	(0.468)
+state_44	statefip==Texas	0.626	0.703
+		(0.436)	(0.453)
+state_45	statefip==Utah	0.695	0.770
+		(0.539)	(0.531)
+state_46	statefip==Vermont	0.531	0.599
+		(0.571)	(0.566)
+state_47	statefip==Virginia	0.204	0.276
+		(0.443)	(0.459)
+state_48	statefip==Washington	0.488	0.516
+		(0.445)	(0.463)
+state_49	statefip==West Virginia	-0.297	-0.128
+		(0.493)	(0.507)
+state_50	statefip==Wisconsin	0.450	0.545
+		(0.446)	(0.460)
+o.state_51	statefip==Wyoming = o,	-	-
+			
+year_1	year==  2010.0000	-0.069	-0.082
+		(0.098)	(0.100)
+year_2	year==  2012.0000	-0.131	-0.153
+		(0.100)	(0.102)
+year_3	year==  2013.0000	-0.185*	-0.176*
+		(0.102)	(0.104)
+o.year_4	year==  2021.0000 = o,	-	-
+			
+month_1	month==January	0.091	0.066
+		(0.128)	(0.127)
+month_2	month==February	0.172	0.157
+		(0.139)	(0.139)
+month_3	month==March	-0.091	-0.099
+		(0.133)	(0.133)
+month_4	month==April	0.294*	0.265*
+		(0.158)	(0.156)
+month_5	month==May	-0.133	-0.160
+		(0.130)	(0.129)
+month_6	month==June	0.245	0.251
+		(0.150)	(0.153)
+month_7	month==July	0.011	0.021
+		(0.143)	(0.141)
+month_8	month==August	0.088	0.083
+		(0.131)	(0.129)
+month_9	month==September	0.081	0.084
+		(0.143)	(0.145)
+month_10	month==October	-0.022	-0.019
+		(0.152)	(0.152)
+month_11	month==November	0.130	0.132
+		(0.152)	(0.153)
+o.month_12	month==December = o,	-	-
+			
+Constant	Constant	-2.115**	-1.559
+		(0.967)	(1.008)
+			
+Observations		2,682	2,682
+R-squared		0.119	0.134
+Robust standard errors in parentheses			
+*** p<0.01, ** p<0.05, * p<0.1			

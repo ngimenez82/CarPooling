@@ -1,0 +1,11 @@
+		(1)	(2)	(3)	(4)
+VARIABLES	LABELS	No carpool	No carpool	Carpool (non-hh)	Carpool (non-hh)
+					
+scpain	Pain scale	0.642	1.366	0.945	1.824
+schappy	Happiness scale	3.990	1.607	4.513	1.586
+scsad	Sadness scale	0.527	1.188	0.899	1.624
+sctired	Fatigue scale	2.497	1.912	2.467	1.928
+scstress	Stress scale	1.779	1.798	1.334	1.754
+					
+Episodes		2392	2392	114	114
+Individuals		2144	2144	104	104

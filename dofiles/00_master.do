@@ -17,11 +17,11 @@ December 2025
 * DIRECTORY
 *------------------------------------------------------
 clear all
-cd "C:\Users\usuario\Desktop\projects\Carpooling\dofiles"
+cd "C:\data\CarPooling\dofiles"
 
-global data "C:\Users\usuario\Desktop\projects\Carpooling\Data"
+global data "C:\data\CarPooling\Data"
 
-global results "C:\Users\usuario\Desktop\projects\Carpooling\Results"
+global results "C:\data\CarPooling\Results"
 
 *------------------------------------------------------
 * US
@@ -29,3 +29,7 @@ global results "C:\Users\usuario\Desktop\projects\Carpooling\Results"
 do atus_f.do
 do 02_atus_cleaning.do
 do 03_analysis_atus.do
+do 04_comparison.do
+do 05_intensive_margin_analysis.do
+do 06_happiness.do
+	

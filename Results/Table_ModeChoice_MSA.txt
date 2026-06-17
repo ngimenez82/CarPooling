@@ -1,0 +1,24 @@
+		(1)
+VARIABLES	LABELS	Carpool (non-HH): univ. gradient by MSA
+		
+2bn.msasize	MSA/PMSA size = 2b,	-0.086*
+		(0.044)
+3.msasize	MSA/PMSA size = 3, 250,000 - 499,999	-0.094**
+		(0.044)
+4.msasize	MSA/PMSA size = 4, 500,000 - 999,999	-0.084**
+		(0.041)
+5.msasize	MSA/PMSA size = 5, 1,000,000 - 2,499,999	-0.051**
+		(0.021)
+6.msasize	MSA/PMSA size = 6, 2,500,000 - 4,999,999	-0.048**
+		(0.024)
+7.msasize	MSA/PMSA size = 7, 5,000,000+	-0.028*
+		(0.015)
+		
+Observations		1,939
+Occupation FE		Yes
+MSA size FE		Yes
+Region FE		Yes
+Year FE		Yes
+SE		Clustered (caseid)
+Standard errors in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		

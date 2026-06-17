@@ -1,0 +1,59 @@
+		(1)	(2)	(3)
+VARIABLES	LABELS	MSA size	MSA size	MSA size
+				
+native	Native	-0.535		
+		(0.427)		
+male	Male	-0.295		
+		(0.402)		
+incouple	Living with couple	0.027		
+		(0.370)		
+secondary	Educ. level: Secondary	-1.117**		
+		(0.564)		
+2.metro	Metropolitan and central/principal city status = 2, Metropolitan, not in central/principal city (balance on MSA)	-0.639		
+		(0.589)		
+4.metro	Metropolitan and central/principal city status = 4, Nonmetropolitan	-0.792		
+		(0.658)		
+1.universitary	Educ. level: University = 1	-1.268**		
+		(0.557)		
+1b.metro#0b.universitary		0.000		
+		(0.000)		
+1b.metro#1o.universitary		0.000		
+		(0.000)		
+2o.metro#0b.universitary		0.000		
+		(0.000)		
+2.metro#1.universitary		-0.989		
+		(0.791)		
+4o.metro#0b.universitary		0.000		
+		(0.000)		
+4.metro#1.universitary		-0.020		
+		(0.962)		
+nchild	Number of children	-0.031		
+		(0.148)		
+hh_numadults	Number of adults in household	0.000		
+		(0.230)		
+age	Age	0.117		
+		(0.249)		
+age_sq	Age squared	-0.001		
+		(0.003)		
+3.msasize	MSA/PMSA size = 3, 250,000 - 499,999			-0.415***
+				(0.127)
+4.msasize	MSA/PMSA size = 4, 500,000 - 999,999			0.016
+				(0.065)
+5.msasize	MSA/PMSA size = 5, 1,000,000 - 2,499,999			-0.096*
+				(0.057)
+6.msasize	MSA/PMSA size = 6, 2,500,000 - 4,999,999			-0.075
+				(0.049)
+7.msasize	MSA/PMSA size = 7, 5,000,000+			-0.018
+				(0.028)
+Constant	Constant	-3.759		
+		(4.905)		
+				
+Observations		2,001	1,939	1,939
+Occupation FE		Yes	Yes	Yes
+Region FE		Yes	Yes	Yes
+Year FE		Yes	Yes	Yes
+Metro controls		Yes	No	No
+MSA size		No	Yes	Yes
+SE		Robust	Robust	Robust
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				

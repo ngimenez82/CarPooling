@@ -1,4 +1,4 @@
- use "C:\Users\usuario\OneDrive - unizar.es\Carpooling\Data\commuting_episodes.dta",clear 
+ use "C:\data\CarPooling\Data\commuting_episodes.dta",clear 
 
  *** BUILD PORPORTION
  
@@ -55,5 +55,6 @@ fracreg logit s_fam native male incouple secondary universitary ///
        i.occupation i.region i.year [pw=awbwt] if t_carcomm>0, vce(robust)
 
 margins, dydx(*)
+
 
 

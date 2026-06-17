@@ -1,0 +1,15 @@
+		(1)	(2)	(3)	(4)
+VARIABLES	LABELS	Happy: Cluster state	Happy: Cluster state-year	Stress: Cluster state	Stress: Cluster state-year
+					
+m_carpooling	Carpooling for commuting (With non-household members)	0.257*	0.257*	-0.319**	-0.319**
+		(0.138)	(0.138)	(0.126)	(0.135)
+m_public	Transport mode: Public transport	-0.205	-0.205	-0.098	-0.098
+		(0.188)	(0.176)	(0.126)	(0.123)
+m_physical	Transport mode: Walking or bicycle	0.202**	0.202	-0.289***	-0.289***
+		(0.098)	(0.144)	(0.097)	(0.080)
+m_fampooling	Fampooling for commuting (Carpooling with household members)	0.234***	0.234***	-0.153	-0.153*
+		(0.071)	(0.078)	(0.095)	(0.087)
+					
+Observations		2,682	2,682	2,682	2,682
+R-squared		0.330	0.330	0.353	0.353
+SE		Clustered (state)	Clustered (state-year)	Clustered (state)	Clustered (state-year)

@@ -1,0 +1,29 @@
+		(1)	(2)	(3)
+VARIABLES	LABELS	scstress	scstress	scstress
+				
+m_carpooling	Carpooling for commuting (With non-household members)	-0.760**	-0.859***	-0.874***
+		(0.353)	(0.310)	(0.310)
+m_public	Transport mode: Public transport	-0.295	-0.291	-0.241
+		(0.355)	(0.331)	(0.330)
+m_physical	Transport mode: Walking or bicycle	-0.085	-0.718**	-0.697**
+		(0.307)	(0.298)	(0.296)
+m_fampooling	Fampooling for commuting (Carpooling with household members)	-0.247	-0.447*	-0.457*
+		(0.222)	(0.261)	(0.265)
+ln_eptime	Log commuting duration	0.463	0.105	-0.054
+		(0.595)	(0.559)	(0.549)
+ln_eptime_sq	Log commuting duration (Squared)	-0.042	0.012	0.044
+		(0.094)	(0.087)	(0.086)
+avenjoy_noncommuting_stress_c	Avg stress non-commuting		0.773***	0.768***
+			(0.058)	(0.057)
+ln_time_noncommuting_c	Log non-commuting time spent			1.016*
+				(0.561)
+c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c				-0.148
+				(0.343)
+				
+Observations		2,682	2,682	2,682
+Occupation FE		Yes	Yes	Yes
+Region FE		Yes	Yes	Yes
+Year FE		Yes	Yes	Yes
+Month FE		Yes	Yes	Yes
+MSA size		Yes	Yes	Yes
+SE		Clustered (person)	Clustered (person)	Clustered (person)

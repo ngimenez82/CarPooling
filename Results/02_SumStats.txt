@@ -1,15 +1,14 @@
-		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)	(12)	(13)	(14)	(15)	(16)	(17)	(18)	(19)	(20)
-VARIABLES	LABELS	Carpoolers	Carpoolers	Drive alone	Drive alone	Fampoolers	Fampoolers	Public	Public	Walk/Bike	Walk/Bike	Carpoolers	Carpoolers	Drive alone	Drive alone	Fampoolers	Fampoolers	Public	Public	Walk/Bike	Walk/Bike
-																					
-scpain	Pain scale											0.950	1.818	0.619	1.352	0.951	1.519	0.524	0.993	1.070	1.551
-schappy	Happiness scale											4.507	1.580	3.952	1.610	4.527	1.480	3.281	1.689	4.018	1.433
-scsad	Sadness scale											0.889	1.616	0.532	1.196	0.448	1.018	0.589	1.150	0.724	1.295
-sctired	Fatigue scale											2.451	1.924	2.471	1.902	2.663	2.042	3.209	1.935	2.682	1.952
-scstress	Stress scale											1.320	1.748	1.805	1.809	1.430	1.653	1.939	1.858	1.818	1.718
-avenjoy_nontravelling_hap	average happiness in all non-travelling activities	4.653	1.392	4.241	1.417	4.494	1.427	4.201	1.178	3.925	1.479	4.653	1.392	4.241	1.417	4.494	1.427	4.201	1.178	3.925	1.479
-avenjoy_nontravelling_sad	average sadness in all non-travelling activities	0.902	1.614	0.418	0.939	0.465	1.040	0.392	0.994	0.552	0.966	0.902	1.614	0.418	0.939	0.465	1.040	0.392	0.994	0.552	0.966
-avenjoy_nontravelling_tired	average tired in all non-travelling activities	3.054	1.793	2.563	1.746	2.833	1.738	2.597	1.942	2.958	1.698	3.054	1.793	2.563	1.746	2.833	1.738	2.597	1.942	2.958	1.698
-avenjoy_nontravelling_stress	average stress in all non-travelling activities	1.418	1.668	1.538	1.550	1.580	1.685	1.409	1.520	1.889	1.604	1.418	1.668	1.538	1.550	1.580	1.685	1.409	1.520	1.889	1.604
-timetravel	Total time travelling by the individual	57.950	43.184	45.517	33.640	38.179	24.393	88.535	95.137	32.224	30.105	57.950	43.184	45.517	33.640	38.179	24.393	88.535	95.137	32.224	30.105
-avenjoy_nontravelling_pain	average pain in all non-travelling activities	0.939	1.649	0.646	1.247	0.916	1.421	0.405	1.045	0.929	1.396	0.939	1.649								
-																					
+		(1)	(2)
+VARIABLES	LABELS	Total	Total
+			
+age	Age	35.883	8.166
+hhldsize	Household size	3.391	1.678
+nchild	Number of children	1.063	1.231
+hh_numadults	Number of adults in household	2.286	0.957
+native	Native	0.749	0.434
+male	Male	0.607	0.488
+incouple	Living with couple	0.559	0.497
+secondary	Educ. level: Secondary	0.265	0.442
+universitary	Educ. level: University	0.652	0.476
+primary	primary	0.083	0.276
+			

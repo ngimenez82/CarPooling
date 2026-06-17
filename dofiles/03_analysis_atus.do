@@ -4,9 +4,9 @@
 *------------------------------------------------------
 // setting directory for results
 
-*global results "C:\Users\34645\OneDrive - unizar.es\Carpooling\Results"
-global results "C:\Users\usuario\Desktop\projects\Carpooling\Results"
-use "C:\Users\usuario\Desktop\projects\Carpooling\Data\commuting_episodes.dta", clear 
+*global results "C:\data\CarPooling\Results"
+global results "C:\data\CarPooling\Results"
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear 
 *	Summary statistics for the time use variables
 gen primary = 1 
 replace primary = primary - universitary - secondary
@@ -160,6 +160,19 @@ list, noobs abbrev(20)
 *******************************************
 *******************************************
 
+* Reload episode data and regenerate person-level identifiers
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear
+
+gen carpool_total_ep = (m_carpooling==1 | m_fampooling==1)
+bys caseid: egen carpool_total = max(carpool_total_ep)
+bys caseid: egen carpool_nonhh = max(m_carpooling)
+bys caseid: egen carpool_fam   = max(m_fampooling)
+label variable carpool_total "Any carpooling (incl. household)"
+label variable carpool_nonhh "Carpooling (non-household)"
+label variable carpool_fam   "Carpooling (household)"
+
+bysort caseid: egen commute_time_mean = mean(duration)
+
 /*
 bys person: keep if _n==1
 
@@ -187,8 +200,8 @@ gen byte inc_noreport = inlist(famincome, 996, 997, 998)
 label var inc_noreport "Income not reported"
 */
 
-*** MODELO PRINCIPAL 
-bys person: keep if _n==1
+*** MODELO PRINCIPAL
+bys caseid: keep if _n==1
 *============================*
 * Table 3: Logit (AMEs)
 *============================*
@@ -284,32 +297,34 @@ logit carpool_nonhh native male incouple secondary ///
      nchild hh_numadults c.age c.age_sq ///
      i.occupation i.region i.year ///
      [pw=awbwt] if msasize!=0, vce(robust)
+estimates store logit_msa
 margins msasize, dydx(universitary) post
-
-margins msasize, dydx(universitary)
-margins r.msasize, dydx(universitary) 
 
 outreg2 using "`out1'", excel append bdec(3) se dec(3) ///
     keep(native male incouple secondary universitary nchild hh_numadults age age_sq i.msasize##i.universitary) ///
     ctitle("MSA size") ///
     addtext("Occupation FE","Yes","Region FE","Yes","Year FE","Yes","Metro controls", "No", "MSA size", "Yes" ,"SE","Robust") ///
     label
-	
-	
+
 
 *********************************************************************************
+
+estimates restore logit_msa
+margins r.msasize, dydx(universitary)
 
 logit carpool_nonhh native male incouple secondary ///
      i.msasize##i.universitary ///
      nchild hh_numadults c.age c.age_sq commute_time_mean ///
      i.occupation i.region i.year ///
      [pw=awbwt] if msasize!=0, vce(robust)
+estimates store logit_msa_time
 margins msasize, dydx(universitary) post
 
-margins msasize, dydx(universitary)
-margins r.msasize, dydx(universitary) 
+estimates restore logit_msa_time
+margins r.msasize, dydx(universitary)
 
-***ROBUSTNESS 
+/*
+***ROBUSTNESS (exploratory — inc_group not generated in main flow)
 
 logit carpool_nonhh native male incouple secondary universitary ///
      nchild hh_numadults c.age c.age#c.age ///
@@ -317,19 +332,18 @@ logit carpool_nonhh native male incouple secondary universitary ///
      i.inc_group ///
      [pw=awbwt], vce(robust)
 
-	 *** Interaction 
 logit carpool_nonhh native male incouple secondary universitary ///
      nchild hh_numadults c.age c.age#c.age ///
      i.occupation i.region##i.year ///
      [pw=awbwt], vce(robust)
-
 
 reg prop_carpooling age age_sq male native ///
 								secondary universitary  ///
 								incouple hhldsize nchild ///
 								dayhs_work i.occupation weekday ///
 								state_* year_* month_* [pw=awbwt] if tagp==1, robust cluster(person)
-outreg2 using "$results\who_US_commuting.xls", replace bdec(3)	
+outreg2 using "$results\who_US_commuting.xls", replace bdec(3)
+*/
 
 
 *******************************************
@@ -339,8 +353,8 @@ outreg2 using "$results\who_US_commuting.xls", replace bdec(3)
 *******************************************
 
 clear all 
-global results "C:\Users\usuario\Desktop\projects\Carpooling\Results"
-use "C:\Users\usuario\Desktop\projects\Carpooling\Data\commuting_episodes.dta", clear 
+global results "C:\data\CarPooling\Results"
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear 
 local wb "scpain schappy scsad sctired scstress"
 
 foreach v in `wb'{
@@ -654,6 +668,343 @@ outreg2 using "$results\well-being_mnl_stress.xls", append ///
 *************************************************************************
 ***** ELIMINAMOS DEL OBJ 2. LOS DEMAS STATES DE WELL-BEING *****
 *************************************************************************
+
+
+*==========================================================================*
+* TABLE A.3: ROBUSTNESS CHECKS FOR WELL-BEING RESULTS
+* Four alternative specifications (happiness and stress)
+*==========================================================================*
+
+clear all
+global results "C:\data\CarPooling\Results"
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear
+
+* Standardize well-being outcomes
+foreach v in schappy scstress {
+    sum `v'
+    gen double `v'_z = (`v' - r(mean)) / r(sd)
+}
+
+* Centered controls
+sum ln_time_noncommuting
+gen ln_time_noncommuting_c = ln_time_noncommuting - r(mean)
+sum avenjoy_noncommuting_hap
+gen avenjoy_noncommuting_hap_c = avenjoy_noncommuting_hap - r(mean)
+sum avenjoy_noncommuting_stress
+gen avenjoy_noncommuting_stress_c = avenjoy_noncommuting_stress - r(mean)
+
+* Covariate globals
+global xvars "ln_eptime ln_eptime_sq age age_sq male native secondary universitary incouple hhldsize nchild dayhs_work i.occupation weekday i.msasize state_* year_* month_*"
+global avg_hap  "c.ln_time_noncommuting_c##c.avenjoy_noncommuting_hap_c"
+global avg_str  "c.ln_time_noncommuting_c##c.avenjoy_noncommuting_stress_c"
+
+local addfe `"addtext("Occupation FE","Yes","Region FE","Yes","Year FE","Yes","Month FE","Yes","MSA size","Yes","SE","Clustered (person)")"'
+
+*----------------------------------------------------------------------
+* (i-a) Pool HH and non-HH carpooling (carpool_any = 1 if any carpooling)
+*----------------------------------------------------------------------
+gen carpool_any = (m_carpooling == 1 | m_fampooling == 1)
+
+local out "$results\TableA3_Robustness.xls"
+
+reg schappy_z carpool_any m_public m_physical ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel replace bdec(3) label ///
+    keep(carpool_any m_public m_physical ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_hap_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c) ///
+    ctitle("Happiness: Pool HH+nonHH") `addfe' nonotes nocons
+
+reg scstress_z carpool_any m_public m_physical ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(carpool_any m_public m_physical ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_stress_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c) ///
+    ctitle("Stress: Pool HH+nonHH") `addfe' nonotes nocons
+
+*----------------------------------------------------------------------
+* (i-b) Separate driver from passenger (requires driver/passenger flag)
+* Note: use "who_drove" or equivalent variable if available
+*----------------------------------------------------------------------
+* Identify driver episodes: driver flag from ATUS mode codes
+* ATUS code 230 = driver, 231 = passenger in car
+cap gen driver = (mode == 230) if m_carpooling == 1
+cap gen passenger = (mode == 231) if m_carpooling == 1
+
+reg schappy_z driver passenger m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(driver passenger m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_hap_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c) ///
+    ctitle("Happiness: Driver vs Passenger") `addfe' nonotes nocons
+
+reg scstress_z driver passenger m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(driver passenger m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_stress_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c) ///
+    ctitle("Stress: Driver vs Passenger") `addfe' nonotes nocons
+
+*----------------------------------------------------------------------
+* (ii) Exclude 2021 wave (COVID period)
+*----------------------------------------------------------------------
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt] if year != 2021, vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_hap_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c) ///
+    ctitle("Happiness: Excl. 2021") `addfe' nonotes nocons
+
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt] if year != 2021, vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_stress_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c) ///
+    ctitle("Stress: Excl. 2021") `addfe' nonotes nocons
+
+*----------------------------------------------------------------------
+* (iii) Restrict to car-based episodes only (carpool vs solo driving)
+*----------------------------------------------------------------------
+reg schappy_z m_carpooling m_fampooling ///
+    $xvars $avg_hap [pw=awbwt] if (m_driving_alone==1|m_carpooling==1|m_fampooling==1), vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_hap_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c) ///
+    ctitle("Happiness: Car only") `addfe' nonotes nocons
+
+reg scstress_z m_carpooling m_fampooling ///
+    $xvars $avg_str [pw=awbwt] if (m_driving_alone==1|m_carpooling==1|m_fampooling==1), vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_stress_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c) ///
+    ctitle("Stress: Car only") `addfe' nonotes nocons
+
+*----------------------------------------------------------------------
+* (iv) Trim influential observations (Cook's D > 4/n)
+* Cook's D requires OLS without clustering; run without vce(cluster) to get flag,
+* then re-run with clustering on the trimmed sample.
+*----------------------------------------------------------------------
+
+* Happiness
+* Run unweighted OLS (no robust) solely to identify influential obs via Cook's D
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_hap
+predict cooksd_hap, cooksd
+local n = e(N)
+* Main trimmed regression with survey weights and clustered SE
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt] if cooksd_hap <= 4/`n', vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_hap_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c) ///
+    ctitle("Happiness: Trim outliers") `addfe' nonotes nocons
+
+* Stress
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_str
+predict cooksd_str, cooksd
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt] if cooksd_str <= 4/`n', vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling ln_eptime ln_eptime_sq ///
+         ln_time_noncommuting_c avenjoy_noncommuting_stress_c ///
+         c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c) ///
+    ctitle("Stress: Trim outliers") `addfe' nonotes nocons
+
+
+*==========================================================================*
+* ALTERNATIVE SE CLUSTERING (state, state-by-year, wild bootstrap)
+* Installs boottest if not already present
+*==========================================================================*
+cap which boottest
+if _rc ssc install boottest, replace
+
+* Reload data
+clear all
+global results "C:\data\CarPooling\Results"
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear
+
+foreach v in schappy scstress {
+    sum `v'
+    gen double `v'_z = (`v' - r(mean)) / r(sd)
+}
+
+sum ln_time_noncommuting
+gen ln_time_noncommuting_c = ln_time_noncommuting - r(mean)
+sum avenjoy_noncommuting_hap
+gen avenjoy_noncommuting_hap_c = avenjoy_noncommuting_hap - r(mean)
+sum avenjoy_noncommuting_stress
+gen avenjoy_noncommuting_stress_c = avenjoy_noncommuting_stress - r(mean)
+
+global xvars "ln_eptime ln_eptime_sq age age_sq male native secondary universitary incouple hhldsize nchild dayhs_work i.occupation weekday i.msasize state_* year_* month_*"
+
+* Encode state variable for boottest
+cap encode statefip, gen(state_id)
+
+local out "$results\TableA3_ClusteringRobustness.xls"
+
+*-- Happiness: cluster at state level --*
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_hap_c ///
+    $xvars [pw=awbwt], vce(cluster statefip)
+outreg2 using "`out'", excel replace bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling) ///
+    ctitle("Happy: Cluster state") ///
+    addtext("SE","Clustered (state)") nonotes nocons
+
+*-- Happiness: cluster at state-by-year level --*
+gen stateyear = statefip * 10000 + year
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_hap_c ///
+    $xvars [pw=awbwt], vce(cluster stateyear)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling) ///
+    ctitle("Happy: Cluster state-year") ///
+    addtext("SE","Clustered (state-year)") nonotes nocons
+
+*-- Happiness: wild cluster bootstrap (boottest) --*
+reg schappy_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_hap_c ///
+    $xvars [pw=awbwt], vce(cluster person)
+boottest m_carpooling, cluster(person) reps(999) seed(12345) noci
+scalar boot_p_hap = r(p)
+display "Wild bootstrap p-value (happiness): " boot_p_hap
+
+*-- Stress: cluster at state level --*
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_stress_c ///
+    $xvars [pw=awbwt], vce(cluster statefip)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling) ///
+    ctitle("Stress: Cluster state") ///
+    addtext("SE","Clustered (state)") nonotes nocons
+
+*-- Stress: cluster at state-by-year level --*
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_stress_c ///
+    $xvars [pw=awbwt], vce(cluster stateyear)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(m_carpooling m_public m_physical m_fampooling) ///
+    ctitle("Stress: Cluster state-year") ///
+    addtext("SE","Clustered (state-year)") nonotes nocons
+
+*-- Stress: wild cluster bootstrap --*
+reg scstress_z m_carpooling m_public m_physical m_fampooling ///
+    c.ln_time_noncommuting_c##c.avenjoy_noncommuting_stress_c ///
+    $xvars [pw=awbwt], vce(cluster person)
+boottest m_carpooling, cluster(person) reps(999) seed(12345) noci
+scalar boot_p_str = r(p)
+display "Wild bootstrap p-value (stress): " boot_p_str
+
+
+*==========================================================================*
+* TABLE A.4: HETEROGENEITY IN CARPOOLING-WELL-BEING ASSOCIATION
+* By gender, presence of children, occupation group, driver vs passenger
+*==========================================================================*
+
+clear all
+global results "C:\data\CarPooling\Results"
+use "C:\data\CarPooling\Data\commuting_episodes.dta", clear
+
+foreach v in schappy scstress {
+    sum `v'
+    gen double `v'_z = (`v' - r(mean)) / r(sd)
+}
+
+sum ln_time_noncommuting
+gen ln_time_noncommuting_c = ln_time_noncommuting - r(mean)
+sum avenjoy_noncommuting_hap
+gen avenjoy_noncommuting_hap_c = avenjoy_noncommuting_hap - r(mean)
+sum avenjoy_noncommuting_stress
+gen avenjoy_noncommuting_stress_c = avenjoy_noncommuting_stress - r(mean)
+
+global xvars "ln_eptime ln_eptime_sq age age_sq male native secondary universitary incouple hhldsize nchild dayhs_work i.occupation weekday i.msasize state_* year_* month_*"
+global avg_hap "c.ln_time_noncommuting_c##c.avenjoy_noncommuting_hap_c"
+global avg_str "c.ln_time_noncommuting_c##c.avenjoy_noncommuting_stress_c"
+
+local addfe `"addtext("Occupation FE","Yes","Region FE","Yes","Year FE","Yes","Month FE","Yes","MSA size","Yes","SE","Clustered (person)")"'
+
+* White-collar occupation dummy (management, professional, sales, office)
+gen white_collar = inlist(occupation, 1, 2, 4, 5) if occupation != .
+
+* Driver / passenger separation
+cap gen driver    = (mode == 230) if m_carpooling == 1
+cap gen passenger = (mode == 231) if m_carpooling == 1
+
+local out "$results\TableA4_Heterogeneity.xls"
+
+*----------------------------------------------------------------------
+* Happiness heterogeneity
+*----------------------------------------------------------------------
+
+* (a) By gender
+reg schappy_z i.m_carpooling##i.male m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel replace bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.male m_public m_physical m_fampooling) ///
+    ctitle("Happy x Gender") `addfe' nonotes nocons
+
+* (b) By presence of children
+gen has_child = (nchild > 0) if nchild != .
+reg schappy_z i.m_carpooling##i.has_child m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.has_child m_public m_physical m_fampooling) ///
+    ctitle("Happy x Children") `addfe' nonotes nocons
+
+* (c) By occupation group (white vs blue collar)
+reg schappy_z i.m_carpooling##i.white_collar m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.white_collar m_public m_physical m_fampooling) ///
+    ctitle("Happy x White collar") `addfe' nonotes nocons
+
+* (d) Driver vs passenger (among carpool episodes)
+reg schappy_z driver passenger m_public m_physical m_fampooling ///
+    $xvars $avg_hap [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(driver passenger m_public m_physical m_fampooling) ///
+    ctitle("Happy: Driver/Pass") `addfe' nonotes nocons
+
+*----------------------------------------------------------------------
+* Stress heterogeneity
+*----------------------------------------------------------------------
+
+* (a) By gender
+reg scstress_z i.m_carpooling##i.male m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.male m_public m_physical m_fampooling) ///
+    ctitle("Stress x Gender") `addfe' nonotes nocons
+
+* (b) By presence of children
+reg scstress_z i.m_carpooling##i.has_child m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.has_child m_public m_physical m_fampooling) ///
+    ctitle("Stress x Children") `addfe' nonotes nocons
+
+* (c) By occupation group
+reg scstress_z i.m_carpooling##i.white_collar m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(1.m_carpooling 1.m_carpooling#1.white_collar m_public m_physical m_fampooling) ///
+    ctitle("Stress x White collar") `addfe' nonotes nocons
+
+* (d) Driver vs passenger
+reg scstress_z driver passenger m_public m_physical m_fampooling ///
+    $xvars $avg_str [pw=awbwt], vce(cluster person)
+outreg2 using "`out'", excel append bdec(3) label ///
+    keep(driver passenger m_public m_physical m_fampooling) ///
+    ctitle("Stress: Driver/Pass") `addfe' nonotes nocons
 
 *****************
 /* LO SACAMOS DEL ANALISIS:

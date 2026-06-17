@@ -1,0 +1,36 @@
+		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)
+VARIABLES	LABELS	Happiness: Pool HH+nonHH	Stress: Pool HH+nonHH	Happiness: Driver vs Passenger	Stress: Driver vs Passenger	Happiness: Excl. 2021	Stress: Excl. 2021	Happiness: Car only	Stress: Car only	Happiness: Trim outliers	Stress: Trim outliers
+											
+carpool_any	carpool_any	0.244***	-0.229***								
+		(0.071)	(0.082)								
+m_public	Transport mode: Public transport	-0.205	-0.094			-0.225	-0.104			-0.052	-0.015
+		(0.156)	(0.140)			(0.159)	(0.142)			(0.137)	(0.130)
+m_physical	Transport mode: Walking or bicycle	0.202*	-0.287**			0.214**	-0.288**			0.236**	-0.298***
+		(0.116)	(0.117)			(0.101)	(0.132)			(0.111)	(0.111)
+ln_eptime	ln_eptime	0.365	-0.021	-0.150	0.279	0.364	0.166	0.089	-0.245	0.253	-0.008
+		(0.231)	(0.219)	(1.619)	(0.782)	(0.243)	(0.207)	(0.234)	(0.257)	(0.188)	(0.195)
+ln_eptime_sq	ln_eptime_sq	-0.068*	0.016	0.002	-0.034	-0.067*	-0.014	-0.025	0.052	-0.049*	0.008
+		(0.037)	(0.035)	(0.236)	(0.117)	(0.039)	(0.033)	(0.038)	(0.041)	(0.030)	(0.031)
+ln_time_noncommuting_c	ln_time_noncommuting_c	0.147	0.399*	-3.197*	0.913	0.165	0.452**	0.094	0.415*	0.018	0.120
+		(0.216)	(0.226)	(1.765)	(1.082)	(0.230)	(0.222)	(0.222)	(0.230)	(0.186)	(0.191)
+avenjoy_noncommuting_hap_c	avenjoy_noncommuting_hap_c	0.345***		0.320**		0.338***		0.349***		0.401***	
+		(0.020)		(0.143)		(0.021)		(0.020)		(0.015)	
+c.ln_time_noncommuting_c#c.avenjoy_noncommuting_hap_c		-0.042		-0.675		-0.081		0.010		-0.062	
+		(0.105)		(0.714)		(0.101)		(0.108)		(0.079)	
+avenjoy_noncommuting_stress_c	avenjoy_noncommuting_stress_c		0.320***		0.538***		0.320***		0.314***		0.378***
+			(0.019)		(0.133)		(0.019)		(0.020)		(0.015)
+c.ln_time_noncommuting_c#c.avenjoy_noncommuting_stress_c			0.003		0.368		0.160		0.049		-0.208**
+			(0.131)		(0.495)		(0.140)		(0.133)		(0.103)
+m_carpooling	Carpooling for commuting (With non-household members)					0.220*	-0.152	0.241**	-0.344***	0.269***	-0.288***
+						(0.125)	(0.121)	(0.117)	(0.118)	(0.096)	(0.092)
+m_fampooling	Fampooling for commuting (Carpooling with household members)					0.210**	-0.079	0.235***	-0.145	0.188***	-0.104
+						(0.082)	(0.108)	(0.075)	(0.099)	(0.068)	(0.079)
+											
+Observations		2,682	2,682	114	114	2,375	2,375	2,506	2,506	2,525	2,538
+R-squared		0.330	0.353	0.880	0.941	0.336	0.358	0.328	0.348	0.473	0.480
+Occupation FE		Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+Region FE		Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+Year FE		Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+Month FE		Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+MSA size		Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+SE		Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)	Clustered (person)
